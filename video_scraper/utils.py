@@ -14,3 +14,10 @@ def parse_date(date_str):
     month = MONTHS[parts[2]]
     year = parts[4]
     return f'{day}/{month}/{year}'
+
+def get_valid_option():
+    while True:
+        option = input("Digite a opção da sua preferência de exibição:\n[1] Print no console.\n[2] Arquivo TXT.\n")
+        if option in ['1', '2']:
+            return option
+        print("Opção inválida. Tente novamente.")

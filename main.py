@@ -1,13 +1,17 @@
 from video_scraper.video_info import get_videos_data, get_video_info
 from video_scraper.file_operations import save_to_file
+from video_scraper.logger import logger
+from video_scraper.utils import get_valid_option
+from video_scraper.config import MAX_ATTEMPTS
 import traceback
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from webdriver_manager.firefox import GeckoDriverManager
 
 def main():
     dominio = input("Digite a URL do domínio: ")
-    exibir_opcao = input("Digite a opção da sua preferência de exibição:\n[1] Print no console.\n[2] Prefiro gerar um arquivo.\n")
+    exibir_opcao = get_valid_option()
 
     nome_arquivo = None
     if exibir_opcao == '2':
@@ -23,17 +27,17 @@ def main():
         for video_data in videos_data:
             attempts = 0
             success = False
-            while attempts < 5 and not success:
+            while attempts < MAX_ATTEMPTS and not success:
                 try:
                     video_metadata = get_video_info(video_data, driver)
                     if video_metadata:
                         video_metadata_list.append(video_metadata)
                         success = True
-                except Exception as e:
+                except (TimeoutException, NoSuchElementException) as e:
                     attempts += 1
-                    print(f"Erro ao capturar dados do vídeo {video_data['youtube_url']}: Tentativa {attempts}/5")
-                    if attempts == 5:
-                        print(f"Falha ao capturar dados do vídeo {video_data['youtube_url']} após 5 tentativas.")
+                    logger.error(f"Erro ao capturar dados do vídeo {video_data['youtube_url']}: Tentativa {attempts}/{MAX_ATTEMPTS}")
+                    if attempts == MAX_ATTEMPTS:
+                        logger.error(f"Falha ao capturar dados do vídeo {video_data['youtube_url']} após {MAX_ATTEMPTS} tentativas.")
         
         if exibir_opcao == '1':
             print(video_metadata_list)
@@ -42,8 +46,7 @@ def main():
         else:
             print("Opção inválida.")
     except Exception as e:
-        print(traceback.format_exc())
-        print(e)
+        logger.critical(traceback.format_exc())
     finally:
         driver.quit()
 
