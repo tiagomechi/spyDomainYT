@@ -18,6 +18,8 @@ project/
 
 ## Instalação
 
+0. Python version: 3.12.3.
+1. Firefox é requerido para a execução.
 1. Clone o repositório.
 2. Instale as dependências:
    ```sh
