@@ -16,7 +16,7 @@ project/
 │   └── logger.py
 ├── requirements.txt
 └── README.md
-
+```
 
 ## Instalação
 
