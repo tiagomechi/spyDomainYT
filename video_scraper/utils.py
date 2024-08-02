@@ -1,6 +1,5 @@
 from datetime import datetime
 
-# Mapeamento dos meses em português para os equivalentes numéricos
 MONTHS = {
     'jan.': '01', 'fev.': '02', 'mar.': '03', 'abr.': '04',
     'mai.': '05', 'jun.': '06', 'jul.': '07', 'ago.': '08',

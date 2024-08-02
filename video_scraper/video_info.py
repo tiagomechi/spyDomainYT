@@ -57,7 +57,7 @@ def get_likes(driver):
     if yt_initial_data:
         match = re.search(r'\"accessibilityText\":\"Marque este vídeo como \\\"Gostei\\\" com mais ([\d.]+) pessoas\"', yt_initial_data)
         if match:
-            return match.group(1).replace('.', '')  # Remover pontos e capturar o número
+            return match.group(1).replace('.', '')
     else:
         likes_element = driver.find_element(By.CSS_SELECTOR, 'segmented-like-dislike-button-view-model .yt-spec-button-shape-next__button-text-content')
         return likes_element.text
@@ -107,7 +107,6 @@ def get_video_info(video_data, driver):
     driver.execute_script("window.open('');")
     driver.switch_to.window(driver.window_handles[-1])
     driver.get(url)
-    time.sleep(5)  # Ajuste o tempo de espera conforme necessário
 
     try:
         title = get_video_title(driver)
@@ -146,7 +145,6 @@ def get_video_info(video_data, driver):
 def get_videos_data(driver, url):
     """Obtém os dados dos vídeos da página especificada."""
     driver.get(url)
-    time.sleep(5)
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@aria-label="Filtro de formato do anúncio"]'))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@aria-label="Formato de Vídeo"]'))).click()
     WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, '.grid-expansion-button'))).click()
