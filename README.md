@@ -27,4 +27,5 @@ project/
    ```sh
    pip install -r requirements.txt
 4. Execução:
-   ``` python main.py
+   ```sh
+   python main.py
