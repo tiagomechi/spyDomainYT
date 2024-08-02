@@ -4,14 +4,16 @@ Este projeto é um scraper de vídeos do YouTube baseado em Selenium que captura
 
 ## Estrutura do Projeto
 
+```plaintext
 project/
-│
 ├── main.py
 ├── video_scraper/
-│ ├── init.py
-│ ├── utils.py
-│ ├── video_info.py
-│ └── file_operations.py
+│   ├── __init__.py
+│   ├── utils.py
+│   ├── video_info.py
+│   ├── file_operations.py
+│   ├── config.py
+│   └── logger.py
 ├── requirements.txt
 └── README.md
 
@@ -20,7 +22,9 @@ project/
 
 0. Python version: 3.12.3.
 1. Firefox é requerido para a execução.
-1. Clone o repositório.
-2. Instale as dependências:
+2. Clone o repositório.
+3. Instale as dependências:
    ```sh
    pip install -r requirements.txt
+4. Execução:
+   ``` python main.py
